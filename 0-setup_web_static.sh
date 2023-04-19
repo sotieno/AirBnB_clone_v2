@@ -41,7 +41,7 @@ Commercial support is available at
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 # Give user ubuntu and group ownership of /data/
-sudo chown -hR ubuntu:ubuntu /data/
+sudo chown -R ubuntu:ubuntu /data/
 
 # Update Nginx configuration
 sudo sed -i '38i\\tlocation /hbnb_static {\n\t\talias /data/web_static/current;\n\t}\n' /etc/nginx/sites-enabled/default
