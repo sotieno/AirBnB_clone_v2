@@ -48,3 +48,7 @@ sudo sed -i '38i\\tlocation /hbnb_static {\n\t\talias /data/web_static/current;\
 
 # Restart Nginx
 sudo service nginx restart
+
+# Exit
+exit 0
+
