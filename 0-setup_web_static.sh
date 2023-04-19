@@ -7,8 +7,8 @@ sudo apt-get -y upgrade
 sudo apt-get -y install nginx
 
 # Create required directories
-sudo mkdir -p /data/web_static/releases/test/
-sudo mkdir -p /data/web_static/shared/
+sudo mkdir -p /data/web_static/releases/test
+sudo mkdir -p /data/web_static/shared
 
 # Create test page
 echo "<!DOCTYPE html>
