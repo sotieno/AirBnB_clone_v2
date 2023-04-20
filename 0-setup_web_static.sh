@@ -12,8 +12,7 @@ sudo mkdir -p /data/web_static/shared
 
 # Create test page
 HTML_CONTENT=\
-"
-<!DOCTYPE html>
+"<!DOCTYPE html>
 <html>
 <head>
 <title>Welcome to nginx!</title>
