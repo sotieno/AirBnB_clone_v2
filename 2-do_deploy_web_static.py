@@ -31,6 +31,7 @@ def do_pack():
         # Return None if archive could not be generated
         return None
 
+
 def do_deploy(archive_path):
     """
     Distribute .tgz archive
@@ -50,23 +51,30 @@ def do_deploy(archive_path):
         run("sudo mkdir -p /data/web_static/releases/{}/".format(filename))
 
         # Uncompress the archive to the web server
-        run("sudo tar -xzf /tmp/{}.tgz -C /data/web_static/releases/{}/".format(filename, filename))
+        run("sudo tar -xzf /tmp/{}.tgz -C /data/web_static/releases/{}/".
+            format(filename, filename))
 
         # Delete the archive from the web server
         run("sudo rm /tmp/{}.tgz".format(filename))
 
         # Move the code to the correct directory
-        run("sudo mv /data/web_static/releases/{}/web_static/* /data/web_static/releases/{}/".format(filename, filename))
+        run("sudo mv /data/web_static/releases/{}/web_static/*"
+            + "/data/web_static/releases/{}/".
+            format(filename, filename))
 
         # Delete the empty directory
-        run("sudo rm -rf /data/web_static/releases/{}/web_static".format(filename))
+        run("sudo rm -rf /data/web_static/releases/{}/web_static".
+            format(filename))
 
         # Delete the symbolic link
         run("sudo rm -rf /data/web_static/current")
 
         # Create a new symbolic link
-        run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current".format(filename))
+        run("sudo ln -s /data/web_static/releases/{}/"
+            + "/data/web_static/current".
+            format(filename))
 
+        print("New version deployed!")
         return True
     except:
         return False
