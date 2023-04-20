@@ -11,8 +11,7 @@ sudo mkdir -p /data/web_static/releases/test
 sudo mkdir -p /data/web_static/shared
 
 # Create test page
-HTML_CONTENT=\
-"<!DOCTYPE html>
+echo  -e '<!DOCTYPE html>
 <html>
 <head>
 <title>Welcome to nginx!</title>
@@ -36,9 +35,7 @@ Commercial support is available at
 
 <p><em>Thank you for using nginx.</em></p>
 </body>
-</html>
-"
-echo "$HTML_CONTENT" | sudo tee -a /data/web_static/releases/test/index.html
+</html>' | sudo tee -a /data/web_static/releases/test/index.html
 
 # Create symbolic link
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
