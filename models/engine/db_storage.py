@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" new class for sqlAlchemy """
+"""Contains the class DBStorage"""
 from os import getenv
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import (create_engine)
@@ -14,11 +14,16 @@ from models.amenity import Amenity
 
 
 class DBStorage:
-    """ create tables in environmental"""
+    """
+    interacts with the MySQL database
+    create tables in environmental
+    """
+
     __engine = None
     __session = None
 
     def __init__(self):
+        """Instantiate a DBStorage objects"""
         user = getenv("HBNB_MYSQL_USER")
         passwd = getenv("HBNB_MYSQL_PWD")
         db = getenv("HBNB_MYSQL_DB")
@@ -33,7 +38,7 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """returns a dictionary
+        """query on the current database session
         Return:
             returns a dictionary of __object
         """
@@ -55,30 +60,25 @@ class DBStorage:
         return (dic)
 
     def new(self, obj):
-        """add a new element in the table
-        """
+        """add the object to the current database session"""
         self.__session.add(obj)
 
     def save(self):
-        """save changes
-        """
+        """commit all changes of the current database session"""
         self.__session.commit()
 
     def delete(self, obj=None):
-        """delete an element in the table
-        """
-        if obj:
-            self.session.delete(obj)
+        """delete from the current database session obj if not None"""
+        if obj is not None:
+            self.__session.delete(obj)
 
     def reload(self):
-        """configuration
-        """
+        """reloads data from the database"""
         Base.metadata.create_all(self.__engine)
-        sec = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(sec)
+        sess_maker = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(sess_maker)
         self.__session = Session()
 
     def close(self):
-        """ calls remove()
-        """
-        self.__session.close()
+        """call remove() method on the private session attribute"""
+        self.__session.remove()
